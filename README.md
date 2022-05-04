@@ -64,12 +64,12 @@ Started in 2016, Code for Romania is a civic tech NGO, official member of the Co
 Last, but not least, we rely on donations to ensure the infrastructure, logistics and management of our community that is widely spread across 11 timezones, coding for social change to make Romania and the world a better place. If you want to support us, [you can do it here][link-donate].
 
 
-[ico-contributors]: https://img.shields.io/github/contributors/code4romania/standard-repo-template.svg?style=for-the-badge
-[ico-last-commit]: https://img.shields.io/github/last-commit/code4romania/standard-repo-template.svg?style=for-the-badge
+[ico-contributors]: https://img.shields.io/github/contributors/code4romania/redirectioneaza-zipping.svg?style=for-the-badge
+[ico-last-commit]: https://img.shields.io/github/last-commit/code4romania/redirectioneaza-zipping.svg?style=for-the-badge
 [ico-license]: https://img.shields.io/badge/license-MPL%202.0-brightgreen.svg?style=for-the-badge
 
-[link-contributors]: https://github.com/code4romania/standard-repo-template/graphs/contributors
-[link-last-commit]: https://github.com/code4romania/standard-repo-template/commits/main
+[link-contributors]: https://github.com/code4romania/redirectioneaza-zipping/graphs/contributors
+[link-last-commit]: https://github.com/code4romania/redirectioneaza-zipping/commits/main
 [link-license]: https://opensource.org/licenses/MPL-2.0
 [link-contributing]: https://github.com/code4romania/.github/blob/main/CONTRIBUTING.md
 

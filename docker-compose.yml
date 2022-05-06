@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  api:
+    container_name: "api"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ENVIRONMENT: "${ENVIRONMENT:-development}"
+    ports:
+      - "${API_PORT:-8123}:80"

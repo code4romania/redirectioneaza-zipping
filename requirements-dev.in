@@ -1,0 +1,7 @@
+# generate requirements files
+pip-tools==6.6.0
+
+# code formatting (check Makefile)
+black==22.3.0
+
+-r requirements.txt

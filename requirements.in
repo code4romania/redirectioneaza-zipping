@@ -1,0 +1,9 @@
+# basic requests handling
+requests==2.27.1
+
+# FastAPI requirements
+fastapi~=0.76.0
+uvicorn[standard]~=0.17.6
+
+# cloud storage requirements
+google-cloud-storage==2.3.0

@@ -4,14 +4,15 @@ import string
 import time
 from typing import Callable, Dict, List
 
-from fastapi import FastAPI, HTTPException, BackgroundTasks
+from fastapi import BackgroundTasks, FastAPI, HTTPException
 from requests import Request, Response
 from starlette import status
 
 from src.file_management import urls_to_zip
+from src.models import Input
+from src.settings import app_settings
 from src.uploader import upload_file
 from src.utils import send_notification
-from src.settings import app_settings
 
 app = FastAPI()
 settings = app_settings
@@ -34,7 +35,7 @@ async def log_requests(request: Request, call_next: Callable) -> Response:
 
 
 @app.post("/zip-docs", status_code=status.HTTP_200_OK)
-async def zip_documents(payload: Dict, background_tasks: BackgroundTasks):
+async def zip_documents(payload: Input, background_tasks: BackgroundTasks):
     background_tasks.add_task(_zip_documents, payload)
 
     return {"message": "All went well"}

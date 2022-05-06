@@ -88,7 +88,7 @@ The request should contain:
     ],
     "path": "https://storage.example.com/file_destination.zip",
     "webhook": {
-        "url": "https://notification.example.com/api/webhook",
+        "url": "https://webhook.example.com/webhook",
         "data": {
             "sample_data": "some_data"
         }

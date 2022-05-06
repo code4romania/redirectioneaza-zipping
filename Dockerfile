@@ -15,5 +15,7 @@ RUN if [ "${ENVIRONMENT}" = "production" ]; \
 COPY ./app /code/app
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 
+WORKDIR /code/app
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
 EXPOSE 80

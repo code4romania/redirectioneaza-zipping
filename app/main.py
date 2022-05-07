@@ -2,7 +2,7 @@ import logging
 import random
 import string
 import time
-from typing import Callable, Dict, List
+from typing import Callable, List
 
 from fastapi import BackgroundTasks, FastAPI, HTTPException
 from requests import Request, Response
@@ -41,15 +41,15 @@ async def zip_documents(payload: Input, background_tasks: BackgroundTasks):
     return {"message": "All went well"}
 
 
-def _zip_documents(payload: Dict) -> None:
-    pdf_urls: List[str] = payload["urls"]
+def _zip_documents(payload: Input) -> None:
+    pdf_urls: List[str] = payload.urls
     zipped_file = urls_to_zip(pdf_urls)
-    upload_status = upload_file(zipped_file, to=payload["path"])
+    upload_status = upload_file(zipped_file, to=payload.path)
 
     if status.HTTP_200_OK < upload_status >= status.HTTP_400_BAD_REQUEST:
         raise HTTPException(status_code=upload_status, detail="Upload failed")
 
-    notification_status: int = send_notification(payload["webhook"])
+    notification_status: int = send_notification(payload.webhook)
 
     if status.HTTP_200_OK < notification_status >= status.HTTP_400_BAD_REQUEST:
         raise HTTPException(status_code=notification_status, detail="Notification failed")

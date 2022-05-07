@@ -8,5 +8,7 @@ services:
       dockerfile: Dockerfile
       args:
         ENVIRONMENT: "${ENVIRONMENT:-development}"
+    env_file:
+      - .env
     ports:
       - "${API_PORT:-8123}:80"

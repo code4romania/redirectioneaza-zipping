@@ -5,6 +5,8 @@ from google.cloud import storage
 from google.cloud.storage import Blob, Bucket, Client
 from starlette import status
 
+from src.settings import app_settings
+
 
 def upload_file(file_name, to: str = None) -> int:
     return _upload_to_gcloud(source_file_name=file_name, destination_blob_name=to)
@@ -19,7 +21,7 @@ def _upload_to_gcloud(source_file_name, destination_blob_name) -> int:
     """
     # The ID of your GCS bucket
     # bucket_name = "your-bucket-name"
-    bucket_name = "testing-redir-bucket-123456789"
+    bucket_name = app_settings.BUCKET_NAME
 
     storage_client: Client = storage.Client()
     bucket: Bucket = storage_client.bucket(bucket_name)

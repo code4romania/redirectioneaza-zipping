@@ -36,7 +36,8 @@ If you can, please include some visual description of what you would like the UI
 
 ### Starting the project using docker
 
-The easiest way is to use Docker and Docker Compose.
+:warning: Create a `.env` file from the `.env.example` file and set the variables in it.
+
 To start the project locally with the hot-reload functionality, run the following command:
 
 ```shell

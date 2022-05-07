@@ -1,7 +1,6 @@
 import hashlib
 import logging
 import os
-from datetime import datetime
 from zipfile import ZipFile
 
 from requests import get
@@ -70,8 +69,8 @@ def _archive_or_create_folder(hex_digest) -> str:
 
 
 def _zip_files(source_folder) -> str:
-    timestamp: str = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
-    zip_file_name: str = os.path.join(zips_folder, f"pdfs-{timestamp}.zip")
+    file_hash: str = source_folder.split("/")[-1]
+    zip_file_name: str = os.path.join(zips_folder, f"pdfs-{file_hash}.zip")
     with ZipFile(zip_file_name, "w") as zip_obj:
         for folder_name, _, filenames in os.walk(source_folder):
             for filename in filenames:

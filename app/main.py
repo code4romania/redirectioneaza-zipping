@@ -46,10 +46,10 @@ def _zip_documents(payload: Input) -> None:
     zipped_file = urls_to_zip(pdf_urls)
     upload_status = upload_file(zipped_file, to=payload.path)
 
-    if status.HTTP_200_OK < upload_status >= status.HTTP_400_BAD_REQUEST:
-        raise HTTPException(status_code=upload_status, detail="Upload failed")
+    if status.HTTP_200_OK < upload_status["status"] >= status.HTTP_400_BAD_REQUEST:
+        raise HTTPException(status_code=upload_status["status"], detail="Upload failed")
 
-    notification_status: int = send_notification(payload.webhook)
+    notification_status: int = send_notification(payload.webhook, blob_url=upload_status["url"])
 
     if status.HTTP_200_OK < notification_status >= status.HTTP_400_BAD_REQUEST:
         raise HTTPException(status_code=notification_status, detail="Notification failed")

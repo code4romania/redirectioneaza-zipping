@@ -36,7 +36,8 @@ If you can, please include some visual description of what you would like the UI
 
 ### Starting the project using docker
 
-:warning: Create a `.env` file from the `.env.example` file and set the variables in it.
+:warning: Create a `.env` file from the `.env.example` file and set the proper `BUCKET_NAME` in it.
+Also add a file named `storage-credentials.json` to the root of the project.
 
 To start the project locally with the hot-reload functionality, run the following command:
 

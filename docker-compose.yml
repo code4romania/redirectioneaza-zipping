@@ -10,5 +10,7 @@ services:
         ENVIRONMENT: "${ENVIRONMENT:-development}"
     env_file:
       - .env
+    volumes:
+      - ./storage-credentials.json:/storage-credentials.json
     ports:
       - "${API_PORT:-8123}:80"

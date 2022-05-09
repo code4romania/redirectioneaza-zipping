@@ -8,6 +8,8 @@ zips-*/
 
 # credentials
 google-creds.json
+storage-credentials.json
+*cred*.json
 
 ### VisualStudioCode template
 .vscode/*

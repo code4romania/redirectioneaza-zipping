@@ -6,7 +6,9 @@ pdfs-*/
 zips
 zips-*/
 
+
 # credentials
+creds/
 google-creds.json
 storage-credentials.json
 *cred*.json

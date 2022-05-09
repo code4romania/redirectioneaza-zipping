@@ -11,6 +11,6 @@ services:
     env_file:
       - .env
     volumes:
-      - ./storage-credentials.json:/storage-credentials.json
+      - ./creds/:/creds/
     ports:
       - "${API_PORT:-8123}:80"

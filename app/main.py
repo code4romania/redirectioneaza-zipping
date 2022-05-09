@@ -42,7 +42,7 @@ async def zip_documents(payload: Input, background_tasks: BackgroundTasks):
     else:
         background_tasks.add_task(_zip_documents, payload)
 
-    return {"message": "All went well"}
+    return JSONResponse({"status": status.HTTP_200_OK, "message": "Task added to queue"})
 
 
 def _zip_documents(payload: Input) -> JSONResponse:

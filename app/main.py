@@ -58,5 +58,4 @@ def _zip_documents(payload: Input) -> JSONResponse:
     if status.HTTP_200_OK < notification_status >= status.HTTP_400_BAD_REQUEST:
         raise HTTPException(status_code=notification_status, detail="Notification failed")
 
-    # json_compatible_item_data = jsonable_encoder({"status": status, "url": upload_response["url"]})
     return JSONResponse(content=upload_response)

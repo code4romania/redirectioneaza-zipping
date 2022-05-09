@@ -27,6 +27,10 @@ def _upload_to_gcloud(source_file_name, destination_blob_name: str | None = None
     destination = destination_blob_name if destination_blob_name else source_file_name
     blob: Blob = bucket.blob(destination)
 
+    if blob.exists():
+        logging.info(f"File {destination} already exists in bucket {bucket_name}")
+        return {"status": status.HTTP_200_OK, "url": blob.public_url}
+
     try:
         blob.upload_from_filename(source_file_name)
         blob.make_public()
@@ -35,4 +39,4 @@ def _upload_to_gcloud(source_file_name, destination_blob_name: str | None = None
         return {"status": status.HTTP_403_FORBIDDEN, "url": ""}
 
     logging.info("File {} uploaded to {}.".format(source_file_name, destination))
-    return {"status": status.HTTP_200_OK, "url": blob.public_url}
+    return {"status": status.HTTP_201_CREATED, "url": blob.public_url}

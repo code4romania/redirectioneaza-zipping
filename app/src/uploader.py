@@ -31,6 +31,7 @@ def _upload_to_gcloud(source_file_name, destination_blob_name: str | None = None
 
     try:
         blob.upload_from_filename(source_file_name)
+        blob.make_public()
     except Forbidden as e:
         logging.error(e)
         return {"status": status.HTTP_403_FORBIDDEN, "url": ""}

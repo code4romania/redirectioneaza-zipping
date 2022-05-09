@@ -20,8 +20,6 @@ def _upload_to_gcloud(source_file_name, destination_blob_name: str | None = None
     :param destination_blob_name: The ID of your GCS object (ex: "storage-object-name")
     :return:
     """
-    # The ID of your GCS bucket
-    # bucket_name = "your-bucket-name"
     bucket_name = app_settings.BUCKET_NAME
 
     storage_client: Client = storage.Client()

@@ -41,7 +41,7 @@ def _process_files(all_pdfs) -> str:
 
         main_logging_header: str = f" #{index + 1:06d}/{files_count:06d} - "
         secondary_logging_header: str = f"{' ' * len(main_logging_header)}"
-        logging.info(f"{main_logging_header}{file_name}")
+        logging.info(f"{main_logging_header}{pdf} | {file_name}")
 
         if os.path.exists(file_path):
             logging.info(f"{secondary_logging_header}File already exists")

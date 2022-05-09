@@ -10,5 +10,5 @@ class WebhookInput(BaseModel):
 
 class Input(BaseModel):
     urls: List[str]
-    path: str
+    path: str | None
     webhook: WebhookInput

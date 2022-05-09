@@ -7,6 +7,7 @@ from typing import Callable, List
 from fastapi import BackgroundTasks, FastAPI, HTTPException
 from requests import Request, Response
 from starlette import status
+from starlette.responses import JSONResponse
 
 from src.file_management import urls_to_zip
 from src.models import Input
@@ -36,20 +37,26 @@ async def log_requests(request: Request, call_next: Callable) -> Response:
 
 @app.post("/zip-docs", status_code=status.HTTP_200_OK)
 async def zip_documents(payload: Input, background_tasks: BackgroundTasks):
-    background_tasks.add_task(_zip_documents, payload)
+    if settings.RUNNING_MODE == "foreground":
+        return _zip_documents(payload)
+    else:
+        background_tasks.add_task(_zip_documents, payload)
 
     return {"message": "All went well"}
 
 
-def _zip_documents(payload: Input) -> None:
+def _zip_documents(payload: Input) -> JSONResponse:
     pdf_urls: List[str] = payload.urls
     zipped_file = urls_to_zip(pdf_urls)
-    upload_status = upload_file(zipped_file, to=payload.path)
+    upload_response = upload_file(zipped_file, destination=payload.path)
 
-    if status.HTTP_200_OK < upload_status["status"] >= status.HTTP_400_BAD_REQUEST:
-        raise HTTPException(status_code=upload_status["status"], detail="Upload failed")
+    if status.HTTP_200_OK < upload_response["status"] >= status.HTTP_400_BAD_REQUEST:
+        raise HTTPException(status_code=upload_response["status"], detail="Upload failed")
 
-    notification_status: int = send_notification(payload.webhook, blob_url=upload_status["url"])
+    notification_status: int = send_notification(payload.webhook, blob_url=upload_response["url"])
 
     if status.HTTP_200_OK < notification_status >= status.HTTP_400_BAD_REQUEST:
         raise HTTPException(status_code=notification_status, detail="Notification failed")
+
+    # json_compatible_item_data = jsonable_encoder({"status": status, "url": upload_response["url"]})
+    return JSONResponse(content=upload_response)

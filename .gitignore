@@ -5,6 +5,12 @@ pdfs
 pdfs-*/
 zips
 zips-*/
+_csvs
+_csvs-*/
+_pdfs
+_pdfs-*/
+_zips
+_zips-*/
 
 
 # credentials

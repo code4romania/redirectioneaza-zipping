@@ -5,8 +5,9 @@ from zipfile import ZipFile
 
 from requests import get
 
-pdfs_folder = "pdfs"
-zips_folder = "zips"
+pdfs_folder = "_pdfs"
+zips_folder = "_zips"
+data_folders = (pdfs_folder, zips_folder)
 
 
 def urls_to_zip(pdf_urls):
@@ -78,3 +79,23 @@ def _zip_files(source_folder) -> str:
                 zip_obj.write(file_path, os.path.basename(file_path))
 
     return zip_file_name
+
+
+def clean_up() -> None:
+    for folder in data_folders:
+        _remove_folder_and_contents(folder)
+
+
+def _remove_folder_and_contents(folder_path) -> None:
+    for folder_name, subfolders, filenames in os.walk(folder_path):
+        if len(filenames) == 0:
+            continue
+
+        for filename in filenames:
+            file_path: str = os.path.join(folder_name, filename)
+            logging.info(f"Removing {file_path}")
+            os.remove(file_path)
+
+        if folder_name != folder_path:
+            logging.info(f"Removing {folder_name}")
+            os.rmdir(folder_name)

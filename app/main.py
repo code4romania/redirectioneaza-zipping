@@ -9,14 +9,13 @@ from requests import Request, Response
 from starlette import status
 from starlette.responses import JSONResponse
 
-from src.file_management import urls_to_zip
+from src.file_management import clean_up, urls_to_zip
 from src.models import Input
 from src.settings import app_settings
 from src.uploader import upload_file
 from src.utils import send_notification
 
 app = FastAPI()
-settings = app_settings
 logger = logging.getLogger(__name__)
 
 
@@ -37,12 +36,20 @@ async def log_requests(request: Request, call_next: Callable) -> Response:
 
 @app.post("/zip-docs", status_code=status.HTTP_200_OK)
 async def zip_documents(payload: Input, background_tasks: BackgroundTasks):
-    if settings.RUNNING_MODE == "foreground":
-        return _zip_documents(payload)
+    if app_settings.RUNNING_MODE == "foreground":
+        return _run_documents_uploader(payload)
     else:
-        background_tasks.add_task(_zip_documents, payload)
+        background_tasks.add_task(_run_documents_uploader, payload)
 
     return JSONResponse({"status": status.HTTP_200_OK, "message": "Task added to queue"})
+
+
+def _run_documents_uploader(payload: Input):
+    try:
+        _zip_documents(payload)
+    finally:
+        if app_settings.RUN_CLEAN_UP:
+            clean_up()
 
 
 def _zip_documents(payload: Input) -> JSONResponse:

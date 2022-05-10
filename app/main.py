@@ -64,6 +64,4 @@ def _zip_documents(payload: Input) -> JSONResponse:
 @app.get("/teapot", summary="Quickly test the server", status_code=status.HTTP_418_IM_A_TEAPOT)
 @app.post("/teapot", summary="Quickly test the server", status_code=status.HTTP_418_IM_A_TEAPOT)
 def teapot():
-    raise HTTPException(
-        status_code=status.HTTP_418_IM_A_TEAPOT, detail={"msg": "I'am a teapot."}
-    )
+    raise HTTPException(status_code=status.HTTP_418_IM_A_TEAPOT, detail={"msg": "I'am a teapot."})

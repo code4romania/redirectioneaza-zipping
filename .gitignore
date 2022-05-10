@@ -12,7 +12,6 @@ _pdfs-*/
 _zips
 _zips-*/
 
-
 # credentials
 creds/
 google-creds.json

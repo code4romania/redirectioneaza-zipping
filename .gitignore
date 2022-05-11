@@ -18,6 +18,9 @@ google-creds.json
 storage-credentials.json
 *cred*.json
 
+# Ignore generated credentials from google-github-actions/auth
+gha-creds-*.json
+
 ### VisualStudioCode template
 .vscode/*
 !.vscode/settings.json

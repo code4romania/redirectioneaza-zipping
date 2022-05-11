@@ -5,6 +5,9 @@ on:
 
 name: Deploy to Docker Hub
 
+env:
+  DOCKER_IMAGE_BASE: tamariei/redirectioneaza-zipping
+
 jobs:
   push-to-gcloud:
     runs-on: ubuntu-20.04
@@ -57,6 +60,6 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ secret.DOCKER_REGISTRY }}/redirectioneaza-zipping:latest,$${{ secret.DOCKER_REGISTRY }}/redirectioneaza-zipping:${{ env.RELEASE_VERSION }}
+          tags: ${{ env.DOCKER_IMAGE_BASE }}:latest,${{ env.DOCKER_IMAGE_BASE }}:${{ env.RELEASE_VERSION }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache

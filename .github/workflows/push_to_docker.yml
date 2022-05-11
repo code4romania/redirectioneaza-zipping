@@ -36,14 +36,14 @@ jobs:
 
       - name: Prepare environment
         run: |
-          [ -d "${WORKDIR}/creds" ] || mkdir "${WORKDIR}/creds"
-          echo "${STORAGE_CREDENTIALS}" > "${WORKDIR}/creds/storage-credentials.json"
+          [ -d "${GITHUB_WORKSPACE}/creds" ] || mkdir "${GITHUB_WORKSPACE}/creds"
+          echo "${STORAGE_CREDENTIALS}" > "${GITHUB_WORKSPACE}/creds/storage-credentials.json"
           
-          cat <<EOT >> "${WORKDIR}/.env"
+          cat <<EOT >> "${GITHUB_WORKSPACE}/.env"
           RUNNING_MODE="${RUNNING_MODE:-background}"
           RUN_CLEAN_UP="${RUN_CLEAN_UP:-True}"
           
-          GOOGLE_APPLICATION_CREDENTIALS="${WORKDIR}/creds/storage-credentials.json"
+          GOOGLE_APPLICATION_CREDENTIALS="${GITHUB_WORKSPACE}/creds/storage-credentials.json"
           
           BUCKET_NAME="${STORAGE_BUCKET_NAME}"
           SECRET_PASSPHRASE="${APPLICATION_PASSPHRASE}"

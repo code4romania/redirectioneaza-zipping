@@ -12,3 +12,4 @@ class Input(BaseModel):
     urls: List[str]
     path: str | None
     webhook: WebhookInput
+    passphrase: str

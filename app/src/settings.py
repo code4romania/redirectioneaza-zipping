@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     BUCKET_NAME: str = os.getenv("BUCKET_NAME", "")
 
     RUNNING_MODE: str = os.getenv("RUNNING_MODE", "foreground")
+    SECRET_PASSPHRASE: str = os.getenv("SECRET_PASSPHRASE", "")
 
     logging_config.fileConfig(f"logging.{ENVIRONMENT}.conf", disable_existing_loggers=False)
 

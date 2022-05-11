@@ -36,6 +36,9 @@ async def log_requests(request: Request, call_next: Callable) -> Response:
 
 @app.post("/zip-docs", status_code=status.HTTP_200_OK)
 async def zip_documents(payload: Input, background_tasks: BackgroundTasks):
+    if payload.passphrase is None or payload.passphrase != app_settings.SECRET_PASSPHRASE:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorised request")
+
     if app_settings.RUNNING_MODE == "foreground":
         return _run_documents_uploader(payload)
     else:

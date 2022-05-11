@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  api:
+    image: "${DOCKER_REGISTRY}/redirectioneaza-zipping:${GITHUB_SHA}"
+    container_name: "api"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ENVIRONMENT: "production"
+    env_file:
+      - .env
+    volumes:
+      - ./creds/:/creds/
+    ports:
+      - "${API_PORT:-8123}:80"

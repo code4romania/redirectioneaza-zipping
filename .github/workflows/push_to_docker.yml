@@ -5,6 +5,9 @@ on:
 
 name: Deploy to Docker Hub
 
+env:
+  DOCKER_IMAGE_BASE: ${DOCKER_REGISTRY}/redirectioneaza-zipping
+
 jobs:
   push-to-gcloud:
     runs-on: ubuntu-20.04

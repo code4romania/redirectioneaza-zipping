@@ -5,6 +5,10 @@ on:
 
 name: Deploy to Docker Hub
 
+env:
+  GCE_INSTANCE: ${{ secrets.GCE_INSTANCE }}
+  GCE_INSTANCE_ZONE:  ${{ secrets.GCE_INSTANCE_ZONE }}
+
 jobs:
   push-to-gcloud:
     runs-on: ubuntu-20.04
@@ -71,6 +75,6 @@ jobs:
 
       - name: Deploy to GCP
         run: |-
-          gcloud compute instances update-container zippy \
-            --zone europe-west3-c \
+          gcloud compute instances update-container ${GCE_INSTANCE} \
+            --zone ${GCE_INSTANCE_ZONE} \
             --container-image "code4romania/redirectioneaza-zipping:edge"

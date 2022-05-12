@@ -9,7 +9,7 @@ from requests import Request, Response
 from starlette import status
 from starlette.responses import JSONResponse
 
-from src.file_management import clean_up, urls_to_zip
+from src.file_management import clean_up_after_current_job, encode_file_names, urls_to_zip
 from src.models import Input
 from src.settings import app_settings
 from src.uploader import upload_file
@@ -64,16 +64,19 @@ async def zip_documents(payload: Input, background_tasks: BackgroundTasks):
 
 
 def _run_documents_uploader(payload: Input):
+    job_identifier: str = encode_file_names(payload.urls)
+
     try:
-        _zip_documents(payload)
+        _zip_documents(payload, job_identifier)
     finally:
         if app_settings.RUN_CLEAN_UP:
-            clean_up()
+            clean_up_after_current_job(job_identifier)
 
 
-def _zip_documents(payload: Input) -> JSONResponse:
+def _zip_documents(payload: Input, job_identifier) -> JSONResponse:
     pdf_urls: List[str] = payload.urls
-    zipped_file = urls_to_zip(pdf_urls)
+
+    zipped_file = urls_to_zip(pdf_urls, job_identifier)
     upload_response = upload_file(zipped_file, destination=payload.path)
 
     if status.HTTP_200_OK < upload_response["status"] >= status.HTTP_400_BAD_REQUEST:

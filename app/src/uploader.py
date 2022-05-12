@@ -9,11 +9,11 @@ from starlette import status
 from src.settings import app_settings
 
 
-def upload_file(file_name, destination: str | None = None) -> Dict:
+def upload_file(file_name: str, destination: str | None = None) -> Dict:
     return _upload_to_gcloud(source_file_name=file_name, destination_blob_name=destination)
 
 
-def _upload_to_gcloud(source_file_name, destination_blob_name: str | None = None) -> Dict:
+def _upload_to_gcloud(source_file_name: str, destination_blob_name: str | None = None) -> Dict:
     """
     Uploads a file to the bucket.
     :param source_file_name: The path to your file to upload (ex: "local/path/to/file")

@@ -19,6 +19,22 @@ app = FastAPI()
 logger = logging.getLogger(__name__)
 
 
+@app.get(
+    "/teapot",
+    summary="I'm a teapot",
+    status_code=status.HTTP_418_IM_A_TEAPOT,
+    description="Useful for testing the server and seeing if it works",
+)
+@app.post(
+    "/teapot",
+    summary="I'm a teapot",
+    status_code=status.HTTP_418_IM_A_TEAPOT,
+    description="Useful for testing the server and seeing if it works",
+)
+def teapot():
+    raise HTTPException(status_code=status.HTTP_418_IM_A_TEAPOT, detail={"msg": "I'am a teapot."})
+
+
 @app.middleware("http")
 async def log_requests(request: Request, call_next: Callable) -> Response:
     idem: str = "".join(random.choices(string.ascii_uppercase + string.digits, k=6))
@@ -69,9 +85,3 @@ def _zip_documents(payload: Input) -> JSONResponse:
         raise HTTPException(status_code=notification_status, detail="Notification failed")
 
     return JSONResponse(content=upload_response)
-
-
-@app.get("/teapot", summary="Quickly test the server", status_code=status.HTTP_418_IM_A_TEAPOT)
-@app.post("/teapot", summary="Quickly test the server", status_code=status.HTTP_418_IM_A_TEAPOT)
-def teapot():
-    raise HTTPException(status_code=status.HTTP_418_IM_A_TEAPOT, detail={"msg": "I'am a teapot."})

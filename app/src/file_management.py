@@ -100,7 +100,7 @@ def _remove_folder_and_contents(folder_path: str, job_identifier: str) -> None:
             continue
 
         for filename in filenames:
-            if job_identifier not in filename:
+            if filename.split(".")[-1] == "zip" and job_identifier not in filename:
                 continue
 
             file_path: str = os.path.join(folder_name, filename)

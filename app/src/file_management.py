@@ -97,9 +97,8 @@ def _remove_folder_and_contents(folder_path: str, job_identifier: str) -> None:
             logging.info(f"No filenames for job identifier {job_identifier}")
             continue
 
-        if job_identifier not in folder_name:
-            logging.info(f"Folder {folder_name} does not belong to job identifier {job_identifier}")
-            continue
+        # if job_identifier not in folder_name:
+        #     continue
 
         for filename in filenames:
             logging.info(f"Trying to delete file name {filename}")
@@ -110,6 +109,6 @@ def _remove_folder_and_contents(folder_path: str, job_identifier: str) -> None:
             logging.info(f"Removing {file_path}")
             os.remove(file_path)
 
-        if folder_name != folder_path:
+        if folder_name != folder_path and folder_name not in data_folders:
             logging.info(f"Removing {folder_name}")
             os.rmdir(folder_name)

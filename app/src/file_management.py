@@ -94,12 +94,15 @@ def clean_up_after_current_job(job_identifier: str) -> None:
 def _remove_folder_and_contents(folder_path: str, job_identifier: str) -> None:
     for folder_name, subfolders, filenames in os.walk(folder_path):
         if len(filenames) == 0:
+            logging.info(f"No filenames for job identifier {job_identifier}")
             continue
 
         if job_identifier not in folder_name:
+            logging.info(f"Folder {folder_name} does not belong to job identifier {job_identifier}")
             continue
 
         for filename in filenames:
+            logging.info(f"Trying to delete file name {filename}")
             if filename.split(".")[-1] == "zip" and job_identifier not in filename:
                 continue
 

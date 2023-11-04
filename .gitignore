@@ -69,8 +69,9 @@ gha-creds-*.json
 # .idea/modules.xml
 # .idea/*.iml
 # .idea/modules
-# *.iml
-# *.ipr
+.idea/
+*.iml
+*.ipr
 
 # CMake
 cmake-build-*/

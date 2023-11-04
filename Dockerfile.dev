@@ -1,0 +1,29 @@
+FROM python:3.11.6-slim-bookworm
+
+ARG ENVIRONMENT
+ENV ENVIRONMENT ${ENVIRONMENT:-production}
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    pip install -U pip
+
+
+# Python virtualenv paths
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv ${VIRTUAL_ENV}
+ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
+
+WORKDIR /build
+COPY ./requirements-dev.txt .
+RUN python3 -m pip install -r ./requirements-dev.txt
+
+WORKDIR /app
+COPY ./app ./
+
+COPY ./docker-entrypoint.sh /docker-entrypoint.sh
+
+# activate the virtualenv:
+RUN . "${VIRTUAL_ENV}/bin/activate"
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+EXPOSE 80

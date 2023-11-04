@@ -20,7 +20,7 @@ jobs:
       images: code4romania/redirectioneaza-zipping
     secrets:
       username: ${{ secrets.DOCKER_HUB_USERNAME }}
-      password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      token: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
   push-to-gcloud:
     runs-on: ubuntu-latest

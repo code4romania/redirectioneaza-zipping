@@ -55,7 +55,8 @@ jobs:
       - name: Deploy to GCP
         shell: bash
         run: |-
-          echo "Deploying revision ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.revision'] }} to GCP"
+          VERSION=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.revision'] }}
+          echo "Deploying revision ${VERSION} to GCP"
           gcloud compute instances update-container ${GCE_INSTANCE} \
             --zone ${GCE_INSTANCE_ZONE} \
-            --container-image "code4romania/redirectioneaza-zipping:edge"
+            --container-image "code4romania/redirectioneaza-zipping:{VERSION}"

@@ -1,9 +1,12 @@
 # basic requests handling
-requests==2.27.1
+requests==2.31.0
 
 # FastAPI requirements
-fastapi~=0.76.0
-uvicorn[standard]~=0.17.6
+fastapi==0.104.1
+uvicorn[standard]==0.23.2
+
+pydantic==2.4.2
+pydantic-settings==2.0.3
 
 # cloud storage requirements
-google-cloud-storage==2.3.0
+google-cloud-storage==2.12.0

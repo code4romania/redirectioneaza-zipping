@@ -10,7 +10,7 @@ if [[ ${ENVIRONMENT} == "production" || ${CREDENTIALS_SOURCE} == "env_var" ]] ; 
 fi
 
 if [[ ${ENVIRONMENT} != "production" ]] ; then
-    uvicorn main:app --host 0.0.0.0 --port 80 --reload
-else
-    uvicorn main:app --host 0.0.0.0 --port 80
+    OPTION="--reload"
 fi
+
+uvicorn main:app --host 0.0.0.0 --port 80 "${OPTION}"

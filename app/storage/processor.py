@@ -11,7 +11,7 @@ zips_folder = "_zips"
 data_folders = (pdfs_folder, zips_folder)
 
 
-def urls_to_zip(pdf_urls: List[str], job_identifier: str):
+def zip_urls(pdf_urls: List[str], job_identifier: str):
     if not os.path.exists(pdfs_folder):
         os.mkdir(pdfs_folder)
     if not os.path.exists(zips_folder):

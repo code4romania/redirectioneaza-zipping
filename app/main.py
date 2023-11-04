@@ -9,11 +9,11 @@ from requests import Request, Response
 from starlette import status
 from starlette.responses import JSONResponse
 
-from src.file_management import clean_up_after_current_job, encode_file_names, urls_to_zip
 from src.models import Input
 from src.settings import app_settings
-from src.uploader import upload_file
 from src.utils import send_notification
+from storage.processor import clean_up_after_current_job, encode_file_names, zip_urls
+from storage.uploader import upload_file
 
 app = FastAPI()
 logger = logging.getLogger(__name__)
@@ -76,7 +76,7 @@ def _run_documents_uploader(payload: Input):
 def _zip_documents(payload: Input, job_identifier) -> JSONResponse:
     pdf_urls: List[str] = payload.urls
 
-    zipped_file = urls_to_zip(pdf_urls, job_identifier)
+    zipped_file = zip_urls(pdf_urls, job_identifier)
     upload_response = upload_file(zipped_file, destination=payload.path)
 
     if status.HTTP_200_OK < upload_response["status"] >= status.HTTP_400_BAD_REQUEST:
